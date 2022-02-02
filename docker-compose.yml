@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+
+  api:
+    build:
+      context: ./meal-planner-api
+      target: development
+    volumes:
+      - ./meal-planner-api:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - ${PORT}:${PORT}
+      - '9229:9229'
+    command: [sh, -c, "cd /usr/src/app && npm run typeorm -- migration:run && npm run start:debug"]
+    env_file:
+      - .env
+    networks:
+      - webnet
+    depends_on:
+      - mysql
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8.0.28
+    networks:
+      - webnet
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    ports:
+      - '3307:3306'
+    volumes:
+      - mysql-data:/var/lib/mysql
+    restart: always
+    env_file:
+      - .env
+networks:
+  webnet:
+volumes:
+  mysql-data:
