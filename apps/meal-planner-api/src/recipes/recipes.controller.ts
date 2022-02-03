@@ -22,7 +22,6 @@ export class RecipesController {
 
   @Get()
   findAll() {
-    return 1;
     return this.recipesService.findAll();
   }
 

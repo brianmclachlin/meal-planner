@@ -9,7 +9,7 @@ services:
     volumes:
       # mounts meal-planner-api code inside the docker container
       # this way when we change a file on our host machine, the file will also be changed in the container
-      #- ./apps/meal-planner-api:/usr/src/app/apps/meal-planner-api
+      - ./apps/meal-planner-api:/usr/src/app/apps/meal-planner-api
       # anonymous volume to prevent the node_modules existing in the container to ever be overridden
       - /usr/src/app/apps/meal-planner-api/node_modules
     ports:
