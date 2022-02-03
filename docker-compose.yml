@@ -4,15 +4,18 @@ services:
 
   api:
     build:
-      context: ./meal-planner-api
       target: development
+      dockerfile: ./apps/meal-planner-api/Dockerfile
     volumes:
-      - ./meal-planner-api:/usr/src/app
-      - /usr/src/app/node_modules
+      # mounts meal-planner-api code inside the docker container
+      # this way when we change a file on our host machine, the file will also be changed in the container
+      #- ./apps/meal-planner-api:/usr/src/app/apps/meal-planner-api
+      # anonymous volume to prevent the node_modules existing in the container to ever be overridden
+      - /usr/src/app/apps/meal-planner-api/node_modules
     ports:
       - ${PORT}:${PORT}
       - '9229:9229'
-    command: [sh, -c, "cd /usr/src/app && npm run typeorm -- migration:run && npm run start:debug"]
+    command: [sh, -c, "pnpm run typeorm  --filter '@meal-planner/api' -- migration:run && pnpm run start:debug --filter '@meal-planner/api'"]
     env_file:
       - .env
     networks:
