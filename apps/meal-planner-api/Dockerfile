@@ -11,7 +11,6 @@ RUN pnpm install --filter "@meal-planner/api..." --frozen-lockfile --unsafe-perm
 RUN pnpm build --filter "@meal-planner/api^..."
 RUN pnpm build --filter "@meal-planner/api"
 
-
 FROM base AS production
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}

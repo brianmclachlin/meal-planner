@@ -10,7 +10,7 @@ import {
 import { RecipesService } from './recipes.service';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { UpdateRecipeDto } from './dto/update-recipe.dto';
-import {meaningOfLife} from "@meal-planner/common";
+import { meaningOfLife } from '@meal-planner/common';
 
 @Controller('recipes')
 export class RecipesController {
