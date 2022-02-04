@@ -10,6 +10,7 @@ import {
 import { RecipesService } from './recipes.service';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { UpdateRecipeDto } from './dto/update-recipe.dto';
+import {meaningOfLife} from "@meal-planner/common";
 
 @Controller('recipes')
 export class RecipesController {
@@ -22,6 +23,7 @@ export class RecipesController {
 
   @Get()
   findAll() {
+    return 1;
     return this.recipesService.findAll();
   }
 
