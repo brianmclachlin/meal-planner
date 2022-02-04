@@ -2,10 +2,9 @@
   "extends": "./tsconfig.build.json",
 
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "@meal-planner/*": ["libs/*/src"]
-    },
-    "noEmit": true
+    }
   }
 }
