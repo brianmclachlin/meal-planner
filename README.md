@@ -29,18 +29,50 @@ Alpine containers do not have `/bin/bash`, so we need to use `/bin/ash`, which i
 $ docker exec -it meal-planner-api-1 /bin/ash
 ```
 
-## Running the app
+## TypeScript compilation
 
-```bash
-# development
-$ npm run start
+### tsconfig compilerOptions paths
 
-# watch mode
-$ npm run start:dev
+Paths are a series of entries which re-map imports to lookup locations relative to the baseUrl. This lets you declare how TypeScript should resolve an import in your `require/import`s.
 
-# production mode
-$ npm run start:prod
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@meal-planner/*": ["libs/*/src"]
+    }
+  }
+}
 ```
+
+When TypeScript compiles, the folder structure depends on whether the project has any imports from another project. This means that the entry file for projects will need to be updated accordingly.
+
+#### Without Imports From Another Project
+```
+/dist
+    /migrations
+    /recipes
+    main.js
+```
+
+nest-cli.json `entryFile` can be omitted because `main.ts` is in the root of the dist folder.
+
+#### With Imports From Another Project
+```
+/dist
+    /apps
+        /meal-planner-api
+            /src
+                /migrations
+                /recipes
+                main.js
+    /libs
+        /common
+            /src
+                index.js
+```
+
+nest-cli.json `entryFile` needs to point to `apps/meal-planner-api/src/main`. 
 
 ## Test
 
